@@ -1,0 +1,10 @@
+data:
+  products_path: "data/products.csv"
+  sales_path: "data/sales.csv"
+vectorizer:
+  name: "sentence_transformer"
+  model_name: "all-MiniLM-L6-v2"
+clusterizer:
+  name: "dbscan"
+  eps: 0.8
+  min_samples: 2

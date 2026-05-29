@@ -1,0 +1,19 @@
+from abc import ABC, abstractmethod
+from typing import Any, List, TypeVar, Generic
+
+from core.entities.embedding_result import EmbeddingResult
+from core.abstractions.accessor import BaseAccessor
+
+T = TypeVar("T")
+
+
+class BaseVectorizer(ABC, Generic[T]):
+    def __init__(self, accessor: BaseAccessor[T] = None):
+        self.accessor = accessor
+
+    @abstractmethod
+    def vectorize(
+        self,
+        entities: List[T]
+    ) -> EmbeddingResult:
+        pass

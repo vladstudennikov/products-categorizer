@@ -1,0 +1,16 @@
+validators:
+  vectorization:
+    - name: product
+      params:
+        min_entities_count: 1
+        accessor: product
+
+    - name: sentence_transformer
+      params:
+        expected_model_name: all-MiniLM-L6-v2
+
+  clustering:
+    - name: dbscan
+      params:
+        max_eps_allowed: 1.0
+        min_samples_required: 2

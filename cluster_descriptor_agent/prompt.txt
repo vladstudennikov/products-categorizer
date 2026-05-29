@@ -1,0 +1,9 @@
+You are a product marketing expert. I will provide you with a list of product names that belong to the same semantic cluster. 
+Your task is to provide a concise (1-2 sentences) name and description for this cluster that captures its core essence.
+
+Product Names:
+{product_names}
+
+Response Format:
+Name: [Cluster Name]
+Description: [Cluster Description]

@@ -1,0 +1,3 @@
+pipeline:
+  use_persistence: true
+  persistence_dir: "my_checkpoints"
