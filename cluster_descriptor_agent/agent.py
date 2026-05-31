@@ -45,6 +45,5 @@ class ClusterDescriptorAgent:
         """
         descriptions = {}
         for cluster_id, names in clusters_data.items():
-            print(f"Describing cluster {cluster_id}...")
             descriptions[cluster_id] = self.describe_cluster(names)
         return descriptions

@@ -1,0 +1,19 @@
+You are a senior strategy consultant. Analyze the following data to provide a strategic development plan.
+
+Our Product Clusters (with AI descriptions):
+{our_clusters}
+
+Competitor Product Clusters (with AI descriptions):
+{competitor_clusters}
+
+Sales Analytics (Our Sales by Cluster):
+{sales_analytics}
+
+Comparison and Strategy Analysis:
+1. MARKET OVERLAP: Compare our clusters with the competitor's clusters. Where do we directly compete?
+2. GAP ANALYSIS: Where does the competitor have clusters that we don't? Where do we have unique offerings?
+3. PERFORMANCE EVALUATION: Based on our sales analytics (revenue, quantity sold per cluster), which segments are our "cash cows" or "stars"?
+4. STRATEGIC RECOMMENDATIONS: Identify 2-3 specific segments/clusters where we should focus our development or expansion. Should we enter a competitor's segment or strengthen our own?
+5. ACTION PLAN: Provide 3-5 actionable steps for the next quarter.
+
+Return only the analysis in a structured, professional report format.

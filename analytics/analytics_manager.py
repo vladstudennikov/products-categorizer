@@ -24,12 +24,13 @@ class AnalyticsManager:
             **{k: v for k, v in self.config['clusterizer'].items() if k != 'name'}
         )
 
-    def get_clusters(self) -> Dict[str, List[str]]:
+    def get_clusters(self, products_path: str = None) -> Dict[str, List[str]]:
         """
         Performs clustering and returns a mapping of cluster_id to list of product names.
         This allows passing clusters directly to an agent.
         """
-        product_reader = CSVReader(self.config['data']['products_path'])
+        path = products_path or self.config['data']['products_path']
+        product_reader = CSVReader(path)
         df_products = product_reader.read()
         
         if df_products is None:
