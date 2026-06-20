@@ -11,4 +11,4 @@ class BaseClusterizer(ABC):
         self,
         embeddings: EmbeddingResult
     ) -> ClusterResult:
-        pass
+        raise NotImplementedError

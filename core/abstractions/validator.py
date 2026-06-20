@@ -1,8 +1,8 @@
-from abc import ABC
-from abc import abstractmethod
+from abc import ABC, abstractmethod
+from typing import Any
 
 
 class BaseValidator(ABC):
     @abstractmethod
-    def validate(self, data):
-        pass
+    def validate(self, data: Any) -> None:
+        raise NotImplementedError

@@ -8,8 +8,7 @@ class StatePersistenceService:
     @staticmethod
     def dump_state(state: PipelineState, directory: str, filename: str = "state.pkl") -> str:
         """Dumps the entire pipeline state to a file."""
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+        os.makedirs(directory, exist_ok=True)
         
         path = os.path.join(directory, filename)
         with open(path, "wb") as f:
@@ -25,8 +24,7 @@ class StatePersistenceService:
     @staticmethod
     def dump_component(component: Any, directory: str, name: str) -> str:
         """Dumps a specific component (e.g., embeddings) to a file."""
-        if not os.path.exists(directory):
-            os.makedirs(directory)
+        os.makedirs(directory, exist_ok=True)
             
         path = os.path.join(directory, f"{name}.pkl")
         with open(path, "wb") as f:

@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sentence_transformers import SentenceTransformer
 
@@ -28,5 +28,5 @@ class SentenceTransformerVectorizer(BaseVectorizer):
             vectors=vectors,
             model_name=self.model_name,
             dimension=vectors.shape[1],
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )

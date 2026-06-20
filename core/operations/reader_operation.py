@@ -1,4 +1,3 @@
-from typing import List, Optional
 from core.abstractions.operation import BaseOperation
 from core.abstractions.reader import BaseReader
 from core.context.pipeline_context import PipelineContext

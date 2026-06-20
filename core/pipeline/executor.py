@@ -5,19 +5,26 @@ from core.context.pipeline_context import PipelineContext
 
 
 class PipelineExecutor(BaseExecutor):
-    def execute(self, start_node: BaseNode, context: PipelineContext) -> None:
+    def execute(
+        self,
+        start_node: BaseNode,
+        context: PipelineContext,
+    ) -> PipelineContext:
         queue = deque([start_node])
-        visited = set()
+        visited: set[int] = set()
 
         while queue:
             node = queue.popleft()
+            node_identity = id(node)
 
-            if node.node_id in visited:
+            if node_identity in visited:
                 continue
 
-            visited.add(node.node_id)
+            visited.add(node_identity)
             next_nodes = node.execute(context)
             
             for next_node in next_nodes:
                 if next_node:
                     queue.append(next_node)
+
+        return context

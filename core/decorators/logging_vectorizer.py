@@ -1,6 +1,5 @@
-from typing import Any, List
+from typing import Any
 from core.abstractions.vectorizer import BaseVectorizer
-from core.entities.product import Product
 from core.entities.embedding_result import EmbeddingResult
 
 
@@ -10,7 +9,7 @@ class LoggingVectorizer(BaseVectorizer):
         self.wrapped = wrapped
         self.logger = logger
 
-    def vectorize(self, entities: List[Product]) -> EmbeddingResult:
+    def vectorize(self, entities: list[Any]) -> EmbeddingResult:
         self.logger.info(f"Vectorizing {len(entities)} entities")
         result = self.wrapped.vectorize(entities)
         self.logger.info("Vectorization completed")
