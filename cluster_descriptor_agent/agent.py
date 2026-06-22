@@ -3,10 +3,11 @@ import json
 import os
 from typing import List
 from dotenv import load_dotenv
+from core.abstractions.cluster_descriptor import BaseClusterDescriptor
 
-class ClusterDescriptorAgent:
+class ClusterDescriptorAgent(BaseClusterDescriptor):
     def __init__(self, model_name: str = "gpt-oss:120b", prompt_file: str = "cluster_descriptor_agent/prompt.txt"):
-        load_dotenv() # Load variables from .env file
+        load_dotenv()
         self.model_name = model_name
         self.base_url = os.getenv("OLLAMA_CLOUD_URL", "https://ollama.com") 
         self.api_key = os.getenv("OLLAMA_API_KEY", "")
@@ -40,9 +41,6 @@ class ClusterDescriptorAgent:
             return f"Error communicating with Ollama Cloud: {str(e)}"
 
     def describe_all_clusters(self, clusters_data: dict) -> dict:
-        """
-        Expects clusters_data to be a mapping of cluster_id to list of product names.
-        """
         descriptions = {}
         for cluster_id, names in clusters_data.items():
             descriptions[cluster_id] = self.describe_cluster(names)

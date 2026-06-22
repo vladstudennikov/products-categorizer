@@ -21,9 +21,7 @@ class StrategyAnalyzerAgent:
         self.base_url = os.getenv("OLLAMA_CLOUD_URL", "https://ollama.com")
         self.api_key = os.getenv("OLLAMA_API_KEY", "")
         
-        # Determine the absolute path to the prompt file to avoid issues when running from different directories
         if not os.path.isabs(prompt_file):
-            # Assume relative to the project root if not absolute
             project_root = os.getcwd()
             prompt_path = os.path.join(project_root, prompt_file)
         else:
@@ -36,30 +34,15 @@ class StrategyAnalyzerAgent:
         self.descriptor_agent = ClusterDescriptorAgent(model_name=model_name)
 
     def analyze_strategy(self, competitor_products_path: str = "data/products_other_company.csv") -> str:
-        """
-        Performs a full strategy analysis by:
-        1. Clustering our products and describing them.
-        2. Clustering competitor products and describing them.
-        3. Running sales analytics on our data.
-        4. Using an LLM to compare and suggest strategic segments.
-        
-        Returns:
-            str: The AI-generated strategy report.
-        """
         try:
-            # 1. Get and describe our clusters
-            # We use the default path from analytics_config for our products
             our_clusters_raw = self.analytics_manager.get_clusters()
             our_clusters_desc = self.descriptor_agent.describe_all_clusters(our_clusters_raw)
             
-            # 2. Get and describe competitor clusters
             comp_clusters_raw = self.analytics_manager.get_clusters(products_path=competitor_products_path)
             comp_clusters_desc = self.descriptor_agent.describe_all_clusters(comp_clusters_raw)
             
-            # 3. Get sales analytics
             sales_stats = self.analytics_manager.run_analytics()
             
-            # 4. Format data for the prompt
             our_clusters_str = "\n".join([f"- Cluster {cid}: {desc}" for cid, desc in our_clusters_desc.items()])
             comp_clusters_str = "\n".join([f"- Cluster {cid}: {desc}" for cid, desc in comp_clusters_desc.items()])
             sales_stats_str = sales_stats.to_string()
@@ -70,7 +53,6 @@ class StrategyAnalyzerAgent:
                 sales_analytics=sales_stats_str
             )
             
-            # 5. Call LLM for final strategy analysis
             url = f"{self.base_url.rstrip('/')}/api/generate"
             headers = {"Content-Type": "application/json"}
             if self.api_key:
@@ -92,7 +74,6 @@ class StrategyAnalyzerAgent:
             return f"Error during strategy analysis: {str(e)}"
 
 if __name__ == "__main__":
-    # Test execution of the Strategy Analyzer
     print("Initializing Strategy Analyzer...")
     analyzer = StrategyAnalyzerAgent()
     
