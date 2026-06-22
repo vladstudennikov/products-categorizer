@@ -1,0 +1,12 @@
+fastapi
+Jinja2
+numpy
+openpyxl
+pandas
+pydantic
+python-dotenv
+PyYAML
+requests
+scikit-learn
+sentence-transformers
+uvicorn
