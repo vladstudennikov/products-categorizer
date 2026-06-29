@@ -4,25 +4,24 @@ import os
 from typing import List
 from dotenv import load_dotenv
 from core.abstractions.cluster_descriptor import BaseClusterDescriptor
+from cluster_descriptor_agent.prompt_creators import BasePromptCreator, ClusterFilePromptCreator
 
-class ClusterDescriptorAgent(BaseClusterDescriptor):
-    def __init__(self, model_name: str = "gpt-oss:120b", prompt_file: str = "cluster_descriptor_agent/prompt.txt"):
+class OllamaClusterDescriptorAgent(BaseClusterDescriptor):
+    def __init__(self, model_name: str = "gpt-oss:120b", prompt_creator: BasePromptCreator = ClusterFilePromptCreator, prompt_file: str = "cluster_descriptor_agent/prompt.txt"):
         load_dotenv()
         self.model_name = model_name
         self.base_url = os.getenv("OLLAMA_CLOUD_URL", "https://ollama.com") 
         self.api_key = os.getenv("OLLAMA_API_KEY", "")
-        
-        with open(prompt_file, 'r') as f:
-            self.prompt_template = f.read()
+        self.prompt_creator = prompt_creator.__init__(prompt_file)
 
     def describe_cluster(self, product_names: List[str]) -> str:
-        prompt = self.prompt_template.format(product_names=", ".join(product_names))
-        
+        prompt = self.prompt_creator.create_prompt(product_names)
         url = f"{self.base_url.rstrip('/')}/api/generate"
         
         headers = {
             "Content-Type": "application/json"
         }
+
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
         
