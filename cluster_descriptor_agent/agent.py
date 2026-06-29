@@ -12,7 +12,7 @@ class OllamaClusterDescriptorAgent(BaseClusterDescriptor):
         self.model_name = model_name
         self.base_url = os.getenv("OLLAMA_CLOUD_URL", "https://ollama.com") 
         self.api_key = os.getenv("OLLAMA_API_KEY", "")
-        self.prompt_creator = prompt_creator.__init__(prompt_file)
+        self.prompt_creator = prompt_creator(prompt_file)
 
     def describe_cluster(self, product_names: List[str]) -> str:
         prompt = self.prompt_creator.create_prompt(product_names)
