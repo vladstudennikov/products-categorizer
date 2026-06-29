@@ -6,8 +6,9 @@ from typing import Dict, Any, List
 from dotenv import load_dotenv
 from analytics.analytics_manager import AnalyticsManager
 from cluster_descriptor_agent.agent import ClusterDescriptorAgent
+from core.abstractions.strategy_descriptor import BaseStrategyDescriptor
 
-class StrategyAnalyzerAgent:
+class StrategyAnalyzerAgent(BaseStrategyDescriptor):
     def __init__(self, 
                  model_name: str = "gpt-oss:120b", 
                  prompt_file: str = "strategy_descriptor_agent/prompt.txt",
