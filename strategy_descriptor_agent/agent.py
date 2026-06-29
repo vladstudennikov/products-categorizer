@@ -5,7 +5,7 @@ import pandas as pd
 from typing import Dict, Any, List
 from dotenv import load_dotenv
 from analytics.analytics_manager import AnalyticsManager
-from cluster_descriptor_agent.agent import ClusterDescriptorAgent
+from cluster_descriptor_agent.agent import OllamaClusterDescriptorAgent
 from core.abstractions.strategy_descriptor import BaseStrategyDescriptor
 
 class StrategyAnalyzerAgent(BaseStrategyDescriptor):
@@ -32,7 +32,7 @@ class StrategyAnalyzerAgent(BaseStrategyDescriptor):
             self.prompt_template = f.read()
             
         self.analytics_manager = AnalyticsManager(analytics_config)
-        self.descriptor_agent = ClusterDescriptorAgent(model_name=model_name)
+        self.descriptor_agent = OllamaClusterDescriptorAgent(model_name=model_name)
 
     def analyze_strategy(self, competitor_products_path: str = "data/products_other_company.csv") -> str:
         try:
