@@ -12,8 +12,8 @@ from core.registries.strategy_descriptor_registry import STRATEGY_DESCRIPTORS
 
 
 class FakeStrategyDescriptor(BaseStrategyDescriptor):
-    def analyze_strategy(self, competitor_products_path: str = "data/products_other_company.csv") -> str:
-        return f"Fake strategy analysis using {competitor_products_path}"
+    def analyze_strategy(self) -> str:
+        return f"Fake strategy analysis"
 
 
 class StrategyAnalysisTests(unittest.TestCase):
@@ -24,8 +24,8 @@ class StrategyAnalysisTests(unittest.TestCase):
         descriptor = StrategyDescriptorFactory.create("fake")
         self.assertIsInstance(descriptor, FakeStrategyDescriptor)
 
-        res = descriptor.analyze_strategy("data/test_comp.csv")
-        self.assertEqual(res, "Fake strategy analysis using data/test_comp.csv")
+        res = descriptor.analyze_strategy()
+        self.assertEqual(res, "Fake strategy analysis")
 
     def test_factory_ollama_creation(self):
         descriptor = StrategyDescriptorFactory.create("ollama")
@@ -35,18 +35,14 @@ class StrategyAnalysisTests(unittest.TestCase):
         context = StrategyPipelineContext()
         self.assertIsInstance(context.state, StrategyPipelineState)
         self.assertEqual(context.state.strategy_report, None)
-        self.assertEqual(context.state.competitor_products_path, "data/products_other_company.csv")
 
     def test_strategy_analysis_operation_success(self):
         descriptor = FakeStrategyDescriptor()
         operation = StrategyAnalysisOperation(descriptor)
-
         context = StrategyPipelineContext()
-        context.state.competitor_products_path = "data/custom_competitor.csv"
-
         operation.run(context)
 
-        self.assertEqual(context.state.strategy_report, "Fake strategy analysis using data/custom_competitor.csv")
+        self.assertEqual(context.state.strategy_report, "Fake strategy analysis")
 
     def test_strategy_analysis_operation_failures(self):
         descriptor = FakeStrategyDescriptor()
